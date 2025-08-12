@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Hiring Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #111;
+            --secondary: #fff;
+            --accent: #e0e0e0;
+            --gray: #f5f5f5;
+            --button-bg: #fff;
+            --button-border: #111;
+            --button-hover-bg: #111;
+            --button-hover-color: #fff;
+            --radius: 2.5rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: var(--gray);
+            color: var(--primary);
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        /* NAVIGATION */
+        .nav {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90vw;
+            max-width: 1200px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 2.5rem;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+        .nav-logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #888;
+        }
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(120deg, #e0e0e0 0%, #fff 100%);
+            border-radius: var(--radius);
+            margin: 5rem 2vw 0 2vw;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.07);
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: radial-gradient(circle at 70% 30%, #e0e0e0 0%, #fff 150%);
+            filter: blur(2px) brightness(1.05);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1100px;
+            padding: 5vw 2vw 5vw 2vw;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .hero-headline {
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            word-break: break-word;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.04);
+        }
+        .hero-headline span {
+            display: block;
+        }
+        .hero-sub {
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: #444;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            letter-spacing: 0.01em;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            padding: 1.1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 2rem;
+            border: 2px solid var(--button-border);
+            background: var(--button-bg);
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            cursor: pointer;
+            gap: 1rem;
+        }
+        .hero-cta:hover {
+            background: var(--button-hover-bg);
+            color: var(--button-hover-color);
+            border-color: var(--button-hover-bg);
+        }
+        .hero-cta svg {
+            width: 1.3em;
+            height: 1.3em;
+            fill: currentColor;
+            transition: transform 0.2s;
+        }
+        .hero-cta:hover svg {
+            transform: translateX(6px);
+        }
+        /* SECTIONS */
+        section:not(.hero) {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 6rem 2vw 0 2vw;
+        }
+        .section-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            letter-spacing: -0.01em;
+        }
+        /* FEATURES */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 3rem;
+        }
+        .feature {
+            background: #fff;
+            border-radius: 1.5rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+            padding: 2.5rem 2rem;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: var(--transition);
+        }
+        .feature:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+        }
+        .feature-desc {
+            color: #555;
+            font-size: 1.05rem;
+        }
+        /* TESTIMONIALS */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+        .testimonial {
+            background: #fff;
+            border-radius: 1.5rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+            padding: 2.5rem 2rem;
+            font-size: 1.1rem;
+            font-style: italic;
+            position: relative;
+        }
+        .testimonial:before {
+            content: '“';
+            font-size: 3rem;
+            color: #e0e0e0;
+            position: absolute;
+            top: 1.2rem;
+            left: 1.2rem;
+        }
+        .testimonial-author {
+            font-weight: 700;
+            color: #222;
+            margin-top: 1.5rem;
+            font-style: normal;
+        }
+        /* HOW IT WORKS */
+        .steps {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .step {
+            flex: 1 1 235px;
+            background: #fff;
+            border-radius: 10rem;
+            box-shadow: 0 2px 16px rgb(0 0 0 / 7%);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .step-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        .step-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .step-desc {
+            color: #555;
+            font-size: 1rem;
+        }
+        /* FOOTER */
+        footer {
+            margin-top: 6rem;
+            background: #111;
+            color: #fff;
+            border-radius: 5rem 5rem 0 0;
+            padding: 2rem 2vw 2rem 2vw;
+            text-align: center;
+        }
+        .social-links {
+            margin-top: -1.5rem;
+            margin-left: 657px;
+        }
+        .social-links a {
+            color: #fff;
+            margin: 0 0.7rem;
+            text-decoration: none;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .social-links a:hover {
+            opacity: 1;
+        }
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero-content { align-items: center; text-align: center; }
+            .hero-headline { font-size: clamp(2rem, 10vw, 4rem); }
+            .nav { flex-direction: column; gap: 1rem; padding: 1rem 1.5rem; }
+        }
+        @media (max-width: 600px) {
+            .hero { margin: 3rem 0.5vw 0 0.5vw; border-radius: 1.2rem; }
+            .nav { width: 98vw; padding: 0.7rem 0.7rem; border-radius: 1.2rem; }
+            section:not(.hero) { padding: 3rem 2vw 0 2vw; }
+            .section-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="nav-logo">AI HIRE</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#how">How It Works</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-headline">
+                <span>AI HIRING,</span>
+                <span>SIMPLIFIED</span>
+            </div>
+            <div class="hero-sub">Revolutionize your recruitment with intelligent automation, bias-free matching, and seamless scheduling. Discover the future of hiring—today.</div>
+            <a href="#features" class="hero-cta">
+                Get Started
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </div>
+    </section>
+    <!-- FEATURES SECTION -->
+    <section id="features">
+        <div class="section-title">Why Choose Us</div>
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon"></div>
+                <div class="feature-title">Smart Resume Screening</div>
+                <div class="feature-desc">AI-powered analysis of resumes to identify the best candidates in seconds, saving you valuable time.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon"></div>
+                <div class="feature-title">Automated Scheduling</div>
+                <div class="feature-desc">Seamless interview scheduling that works around your team's availability, eliminating back-and-forth emails.</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon"></div>
+                <div class="feature-title">Bias-Free Matching</div>
+                <div class="feature-desc">Advanced algorithms that focus on skills and experience, ensuring fair and objective candidate evaluation.</div>
+            </div>
+        </div>
+    </section>
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials">
+        <div class="section-title">What Our Clients Say</div>
+        <div class="testimonials-grid">
+            <div class="testimonial">
+                "This platform has revolutionized our hiring process. We've reduced our time-to-hire by 60% while finding better candidates. The AI-powered matching is incredibly accurate."
+                <div class="testimonial-author">Sarah Johnson, HR Director at TechCorp</div>
+            </div>
+            <div class="testimonial">
+                "We're consistently finding candidates who are perfect fits for our roles. It's like having an expert recruiter working 24/7."
+                <div class="testimonial-author">Michael Chen, CEO of InnovateX</div>
+            </div>
+        </div>
+    </section>
+    <!-- HOW IT WORKS SECTION -->
+    <section id="how">
+        <div class="section-title">How It Works</div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-icon">1</div>
+                <div class="step-title">Upload Job Description</div>
+                <div class="step-desc">Paste your job requirements and let our AI analyze the role to understand your needs.</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">2</div>
+                <div class="step-title">Review Matches</div>
+                <div class="step-desc">Get a curated list of top candidates ranked by match quality and relevance to your requirements.</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">3</div>
+                <div class="step-title">Schedule Interviews</div>
+                <div class="step-desc">Use our automated system to schedule interviews with your top picks, saving hours of coordination.</div>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div style="margin-right: 555px;
+        margin-top: 6px;
+    ">&copy; 2024 AI Hiring Platform. All rights reserved.</div>
+        <div class="social-links">
+            <a href="#">LinkedIn</a>
+            <a href="#">Twitter</a>
+            <a href="#">GitHub</a>
+        </div>
+    </footer>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a, .hero-cta').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
